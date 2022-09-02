@@ -1,19 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+[RequireComponent(typeof(Managers))]
+public class PlayerManager : MonoBehaviour, IGameManager
 {
-    private static int health = 3;
+    public ManagerStatus status { get; private set; }
+    private static int health;
 
-    public static void Miss()
+
+    public void Initialize()
+    {
+        status = ManagerStatus.Initializing;
+        //
+
+        //
+        status = ManagerStatus.Started;
+    }
+    public void StartGame()
+    {
+        health = 3;
+    }
+    public void EndGame()
+    {
+
+    }
+    public void Miss()
     {
         health--;
         Debug.Log("Health: " + health);
 
         if (health == 0)
         {
-            // Зупинити гру (відключити менеджери я хз)
+            gameObject.GetComponent<Managers>().EndGame();
             // Показати менюшку закінчення гри
         }
     }
