@@ -26,12 +26,11 @@ public class PlayerManager : MonoBehaviour, IGameManager
     public void Miss()
     {
         health--;
-        Debug.Log("Health: " + health);
+        Managers.UIManager.RemoveHeart();
 
         if (health == 0)
         {
             gameObject.GetComponent<Managers>().EndGame();
-            // Показати менюшку закінчення гри
         }
     }
 }

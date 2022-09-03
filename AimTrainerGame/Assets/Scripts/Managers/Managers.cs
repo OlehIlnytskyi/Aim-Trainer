@@ -4,13 +4,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerManager))]
 [RequireComponent(typeof(TargetManager))]
-[RequireComponent(typeof(BackgroundManager))]
+[RequireComponent(typeof(UIManager))]
 public class Managers : MonoBehaviour
 {
-    public static SpriteRenderer BG { get; private set; }
     public static PlayerManager PlayerManager { get; private set; }
     public static TargetManager TargetManager { get; private set; }
-    public static BackgroundManager BackgroundManager { get; private set; }
+    public static UIManager UIManager { get; private set; }
 
     private List<IGameManager> _startSequence;
 
@@ -28,19 +27,21 @@ public class Managers : MonoBehaviour
             manager.EndGame();
         }
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
     void Awake()
     {
-        BG = GameObject.Find("Background").GetComponent<SpriteRenderer>();
-
         PlayerManager = GetComponent<PlayerManager>();
         TargetManager = GetComponent<TargetManager>();
-        BackgroundManager = GetComponent<BackgroundManager>();
+        UIManager = GetComponent<UIManager>();
 
         _startSequence = new List<IGameManager>();
 
         _startSequence.Add(PlayerManager);
         _startSequence.Add(TargetManager);
-        _startSequence.Add(BackgroundManager);
+        _startSequence.Add(UIManager);
 
         StartCoroutine(StartupManagers());
     }

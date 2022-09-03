@@ -1,18 +1,47 @@
 using UnityEngine;
-using TMPro;
 
 public class Target : MonoBehaviour
 {
-    private TextMeshProUGUI scoreText;
-    private static int score = 0;
+    [SerializeField] private AudioClip clip;
+    private Vector3 scale;
+    private bool growing;
     private void Start()
     {
-        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        transform.localScale = new Vector3(0.1f, 0.1f, 1);
+        scale = transform.localScale;
+
+        growing = true;
     }
-    private void OnMouseDown()
+    private void Update()
     {
-        score++;
-        scoreText.text = "Score - " + score.ToString();
-        Destroy(this.gameObject);
+        if (growing)
+        {
+            scale.x += Time.deltaTime / 2.5f;
+            scale.y = scale.x;
+            transform.localScale = scale;
+
+            if (scale.x >= 1)
+            {
+                growing = false;
+            }
+        }
+        else
+        {
+            scale.x -= Time.deltaTime / 2.5f;
+            scale.y = scale.x;
+            transform.localScale = scale;
+
+            if (scale.x <= 0)
+            {
+                Managers.PlayerManager.Miss();
+                Destroy(gameObject);
+            }
+        }
+    }
+    public void TargetClick()
+    {
+        GameObject.Find("Main Camera").GetComponent<AudioSource>().PlayOneShot(clip, 0.25f);
+        Managers.UIManager.AddPoint();
+        Destroy(gameObject);
     }
 }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour, IGameManager
 {
     public ManagerStatus status { get; private set; }
+    [SerializeField] private GameObject targetBatya;
 
     private float timeToNewTarget;
     private float timer;
@@ -15,20 +14,24 @@ public class TargetManager : MonoBehaviour, IGameManager
     {
         status = ManagerStatus.Initializing;
         //
-        timeToNewTarget = 0.8f;
-        timer = 0f;
         isEnabled = false;
         //
         status = ManagerStatus.Started;
     }
     public void StartGame()
     {
+        timeToNewTarget = 0.8f;
+        timer = 0f;
         isEnabled = true;
+        Managers.UIManager.SetSpeed((60f / timeToNewTarget) / 60f);
     }
     public void EndGame()
     {
         isEnabled = false;
-        timer = 0f;
+        foreach (Transform child in targetBatya.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
     void Update()
     {
@@ -42,11 +45,14 @@ public class TargetManager : MonoBehaviour, IGameManager
         if (timer >= timeToNewTarget)
         {
             GameObject target = Instantiate(Resources.Load<GameObject>("Target"));
-            Vector3 pos = new Vector3(Random.Range(-Managers.BG.bounds.size.x / 2 + 1, Managers.BG.bounds.size.x / 2 - 1),
-                Random.Range(-Managers.BG.bounds.size.y / 2 + 0.5f, Managers.BG.bounds.size.y / 2 - 0.5f), -0.01f);
-            target.transform.position = pos;
+
+            target.transform.position = Managers.UIManager.RandomBgPosition();
+            target.transform.SetParent(targetBatya.transform, false);
+            //target.transform.localScale = new Vector3(Managers.UIManager.GetResolution().x / 1920f - 0.1f, Managers.UIManager.GetResolution().y / 1080f - 0.1f, 1f);
 
             timer = 0f;
+            timeToNewTarget -= 0.002f;
+            Managers.UIManager.SetSpeed((60f / timeToNewTarget) / 60f);
         }
     }
 }
