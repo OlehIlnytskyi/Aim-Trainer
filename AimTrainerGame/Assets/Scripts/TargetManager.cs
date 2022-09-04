@@ -3,7 +3,6 @@ using UnityEngine;
 public class TargetManager : MonoBehaviour, IGameManager
 {
     public ManagerStatus status { get; private set; }
-    [SerializeField] private GameObject targetBatya;
 
     private float timeToNewTarget;
     private float timer;
@@ -28,7 +27,7 @@ public class TargetManager : MonoBehaviour, IGameManager
     public void EndGame()
     {
         isEnabled = false;
-        foreach (Transform child in targetBatya.transform)
+        foreach (Transform child in Managers.UIManager.GetBatya())
         {
             Destroy(child.gameObject);
         }
@@ -47,7 +46,7 @@ public class TargetManager : MonoBehaviour, IGameManager
             GameObject target = Instantiate(Resources.Load<GameObject>("Target"));
 
             target.transform.position = Managers.UIManager.RandomBgPosition();
-            target.transform.SetParent(targetBatya.transform, false);
+            target.transform.SetParent(Managers.UIManager.GetBatya(), false);
             //target.transform.localScale = new Vector3(Managers.UIManager.GetResolution().x / 1920f - 0.1f, Managers.UIManager.GetResolution().y / 1080f - 0.1f, 1f);
 
             timer = 0f;

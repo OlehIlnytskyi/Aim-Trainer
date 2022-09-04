@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour, IGameManager
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject restartMenu;
 
+    [SerializeField] private GameObject targetBatya;
+
     //----------------------------------------------------
 
     private int score;
@@ -104,5 +106,9 @@ public class UIManager : MonoBehaviour, IGameManager
     {
         return new Vector3(Random.Range(-Background.GetComponent<RectTransform>().sizeDelta.x / 2 + 100, Background.GetComponent<RectTransform>().sizeDelta.x / 2 - 100),
                 Random.Range(-Background.GetComponent<RectTransform>().sizeDelta.y / 2 + 50, Background.GetComponent<RectTransform>().sizeDelta.y / 2 - 50), -0.01f);
+    }
+    public Transform GetBatya()
+    {
+        return targetBatya.transform;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SoundManager))]
 [RequireComponent(typeof(PlayerManager))]
 [RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(UIManager))]
@@ -9,6 +10,7 @@ public class Managers : MonoBehaviour
 {
     public static PlayerManager PlayerManager { get; private set; }
     public static TargetManager TargetManager { get; private set; }
+    public static SoundManager SoundManager { get; private set; }
     public static UIManager UIManager { get; private set; }
 
     private List<IGameManager> _startSequence;
@@ -35,12 +37,14 @@ public class Managers : MonoBehaviour
     {
         PlayerManager = GetComponent<PlayerManager>();
         TargetManager = GetComponent<TargetManager>();
+        SoundManager = GetComponent<SoundManager>();
         UIManager = GetComponent<UIManager>();
 
         _startSequence = new List<IGameManager>();
 
         _startSequence.Add(PlayerManager);
         _startSequence.Add(TargetManager);
+        _startSequence.Add(SoundManager);
         _startSequence.Add(UIManager);
 
         StartCoroutine(StartupManagers());

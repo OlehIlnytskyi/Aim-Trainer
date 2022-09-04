@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    [SerializeField] private AudioClip clip;
     private Vector3 scale;
     private bool growing;
     private void Start()
@@ -33,14 +32,19 @@ public class Target : MonoBehaviour
 
             if (scale.x <= 0)
             {
+                GameObject miss = Instantiate(Resources.Load<GameObject>("Miss"));
+                miss.transform.SetParent(Managers.UIManager.GetBatya(), false);
+                miss.transform.position = transform.position;
+
                 Managers.PlayerManager.Miss();
+                Managers.SoundManager.PlayMissSound();
                 Destroy(gameObject);
             }
         }
     }
     public void TargetClick()
     {
-        GameObject.Find("Main Camera").GetComponent<AudioSource>().PlayOneShot(clip, 0.25f);
+        Managers.SoundManager.PlayHitSound();
         Managers.UIManager.AddPoint();
         Destroy(gameObject);
     }

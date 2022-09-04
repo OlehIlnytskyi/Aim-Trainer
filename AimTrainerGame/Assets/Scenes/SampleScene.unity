@@ -3047,9 +3047,9 @@ GameObject:
   - component: {fileID: 2141956064}
   - component: {fileID: 2141956063}
   - component: {fileID: 2141956067}
-  - component: {fileID: 2141956066}
   - component: {fileID: 2141956065}
   - component: {fileID: 2141956068}
+  - component: {fileID: 2141956069}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3069,7 +3069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe23f888ea56874fbfc298d869c331b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBatya: {fileID: 2114497465}
 --- !u!4 &2141956064
 Transform:
   m_ObjectHideFlags: 0
@@ -3097,19 +3096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c692100fa4e0a346a3f86a16bfffd18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2141956066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141956062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e2b673da8170a4a9b63fe067cd6e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <status>k__BackingField: 0
 --- !u!114 &2141956067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,3 +3127,18 @@ MonoBehaviour:
   health: {fileID: 728642269}
   startMenu: {fileID: 1770873156}
   restartMenu: {fileID: 540436779}
+  targetBatya: {fileID: 2114497465}
+--- !u!114 &2141956069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141956062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3b74efef4120640bf4e263eede42be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 2a70f206e07bb734ba6395fe108c1be9, type: 3}
+  missSound: {fileID: 8300000, guid: 12308b97a42c17e44a783409ef58f895, type: 3}
